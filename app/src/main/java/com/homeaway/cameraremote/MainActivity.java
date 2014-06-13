@@ -10,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-
-
 public class MainActivity extends Activity {
 
 
@@ -29,7 +27,8 @@ public class MainActivity extends Activity {
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle("Take a picture")
                         .setContentText("MEOW!")
-                        .addAction(R.drawable.ic_launcher, "Record Video", )
+                        .addAction(R.drawable.ic_launcher, "Record Video", getRecordVideoIntent())
+                        .addAction(R.drawable.ic_launcher, "Take Picture", getTakePictureIntent())
                         .setContentIntent(viewPendingIntent);
 
         // Get an instance of the NotificationManager service
@@ -62,11 +61,21 @@ public class MainActivity extends Activity {
     }
 
     private PendingIntent getRecordVideoIntent() {
-        
+        PendingIntent pendingIntent;
+        Intent intent = new Intent();
+        intent.setClass(this, CameraReceiver.class);
+        intent.putExtra(Intents.RECORD_VIDEO, true);
+        pendingIntent =  PendingIntent.getActivity(this, 0, intent, 0);
+        return pendingIntent;
     }
 
     private PendingIntent getTakePictureIntent() {
-
+        PendingIntent pendingIntent;
+        Intent intent = new Intent();
+        intent.setClass(this, CameraReceiver.class);
+        intent.putExtra(Intents.TAKE_PICTURE, true);
+        pendingIntent =  PendingIntent.getActivity(this, 0, intent, 0);
+        return pendingIntent;
     }
 
 

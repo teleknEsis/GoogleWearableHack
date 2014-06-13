@@ -14,6 +14,10 @@ public class CameraIntentService extends IntentService {
 
     private Camera mCamera;
 
+    public CameraIntentService() {
+        super("CameraIntentService");
+    }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         mCamera  = Camera.open(100);
