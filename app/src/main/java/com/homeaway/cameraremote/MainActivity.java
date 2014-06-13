@@ -1,10 +1,12 @@
 package com.homeaway.cameraremote;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preview.support.v4.app.NotificationManagerCompat;
+import android.preview.support.wearable.notifications.WearableNotifications;
 import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,16 +29,18 @@ public class MainActivity extends Activity {
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle("Take a picture")
                         .setContentText("MEOW!")
-                        .addAction(R.drawable.ic_launcher, "Record Video", getRecordVideoIntent())
-                        .addAction(R.drawable.ic_launcher, "Take Picture", getTakePictureIntent())
+                        .addAction(R.drawable.ic_take_video, "Record Video", getRecordVideoIntent())
+                        .addAction(R.drawable.ic_take_picture, "Take Picture", getTakePictureIntent())
                         .setContentIntent(viewPendingIntent);
+
+        Notification notification = new WearableNotifications.Builder(notificationBuilder).build();
 
         // Get an instance of the NotificationManager service
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);
 
         // Build the notification and issues it with notification manager.
-        notificationManager.notify(notificationId, notificationBuilder.build());
+        notificationManager.notify(notificationId, notification);
 
     }
 
